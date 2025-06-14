@@ -1,10 +1,10 @@
 # PurpleAir Lite Home Assistant Integration
 
-A custom copy of the homeassistent purpleair integration that limits the number of sensors queried.
+A custom copy of the Home Assistant Core PurpleAir integration which limits the number of sensors queried.
 
 ## Why?
 
-PurpleAir charges for their API, the current integration in homeassistent core does not query PurpleAir efficiently.
+PurpleAir charges for their API, the current integration in homeassistant core does not query PurpleAir efficiently.
 [HACore issue 146600](https://github.com/home-assistant/core/issues/146600)
 
 

@@ -7,17 +7,17 @@ A custom copy of the Home Assistant Core PurpleAir integration which limits the 
 PurpleAir charges for their API, the current integration in homeassistant core does not query PurpleAir efficiently.
 [HACore issue 146600](https://github.com/home-assistant/core/issues/146600)
 
-
-## Warning - In progress
-
-This is not ready for prime time yet, but it works for my specific use case.
-Drops number of PurpleAir API points used per call from 41 to 11:
-Only pulls data for Temp, Humidity, and VOCs
-
-If I get time, I will make it configurable, save and lookup which HA sensors are disabled any query only for the ones that are enabled.
-Right now to change which sensors are updated you would need to fork this repo and edit the list in coordinator.py
-(2025-06-14)
-
+> [!CAUTION]
+> ## Work In progress
+> 
+> This is not ready for prime time yet, but it works for my specific use case.
+> Drops number of PurpleAir API points used per call from 41 to 11:
+> Only pulls data for Temp, Humidity, and VOCs
+> 
+> I am planning to continue working on this and make it configurable, save and lookup which HA sensors are disabled any query only for the ones that are enabled.
+> Right now to change which sensors are updated you would need to fork this repo and edit the list in coordinator.py
+> (2025-06-14)
+> 
 
 ## Installation with HACS
 

@@ -1,4 +1,4 @@
-"""Diagnostics support for PurpleAir."""
+"""Diagnostics support for PurpleAirLite."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant
 
-from .coordinator import PurpleAirConfigEntry
+from .coordinator import PurpleAirLiteConfigEntry
 
 CONF_TITLE = "title"
 
@@ -28,7 +28,7 @@ TO_REDACT = {
 
 
 async def async_get_config_entry_diagnostics(
-    hass: HomeAssistant, entry: PurpleAirConfigEntry
+    hass: HomeAssistant, entry: PurpleAirLiteConfigEntry
 ) -> dict[str, Any]:
     """Return diagnostics for a config entry."""
     return async_redact_data(

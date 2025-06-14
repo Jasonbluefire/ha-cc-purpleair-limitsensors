@@ -1,4 +1,4 @@
-"""Constants for the PurpleAir integration."""
+"""Constants for the PurpleAirLite integration."""
 
 import logging
 from typing import Final
@@ -8,6 +8,6 @@ from homeassistant.const import Platform
 LOGGER: Final = logging.getLogger(__package__)
 PLATFORMS: Final = [Platform.SENSOR]
 
-DOMAIN: Final[str] = "purpleair"
+DOMAIN: Final[str] = "purpleair-lite"
 
 CONF_SENSOR_INDICES: Final[str] = "sensor_indices"

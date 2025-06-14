@@ -37,3 +37,17 @@ Setting up a custom repository is done by:
 8. Further configuration is done within the Integrations configuration in Home Assistant. You may need to restart home assistant and clear your browser cache before it appears, try ctrl+shift+r if you don't see it in the configuration list.
 
 
+## Configuration
+
+Get a PurpleAir API key:
+
+1. Create an account, or log into your account: https://develop.purpleair.com/
+2. Create or find your project.
+3. Create or get your API Key.
+
+Setup the HA Integration:
+
+1. Settings > Devices > Add Integration > PurpleAir_Lite
+2. Paste API Key
+3. Find and select the PurpleAir sensor your want
+4. Go back into the Integration once its set up and disable the HA sensors that are not updated/used

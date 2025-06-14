@@ -5,12 +5,12 @@ from __future__ import annotations
 from homeassistant.core import HomeAssistant
 
 from .const import PLATFORMS
-from .coordinator import PurpleAirLiteConfigEntry, PurpleAirLiteDataUpdateCoordinator
+from .coordinator import PurpleAirConfigEntry, PurpleAirDataUpdateCoordinator
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: PurpleAirLiteConfigEntry) -> bool:
-    """Set up PurpleAirLite config entry."""
-    coordinator = PurpleAirLiteDataUpdateCoordinator(
+async def async_setup_entry(hass: HomeAssistant, entry: PurpleAirConfigEntry) -> bool:
+    """Set up PurpleAir config entry."""
+    coordinator = PurpleAirDataUpdateCoordinator(
         hass,
         entry,
     )
@@ -25,11 +25,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: PurpleAirLiteConfigEntry
     return True
 
 
-async def async_reload_entry(hass: HomeAssistant, entry: PurpleAirLiteConfigEntry) -> None:
+async def async_reload_entry(hass: HomeAssistant, entry: PurpleAirConfigEntry) -> None:
     """Reload config entry."""
     await hass.config_entries.async_reload(entry.entry_id)
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: PurpleAirLiteConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: PurpleAirConfigEntry) -> bool:
     """Unload config entry."""
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)

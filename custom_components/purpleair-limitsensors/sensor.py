@@ -27,28 +27,28 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .const import CONF_SENSOR_INDICES
-from .coordinator import PurpleAirLiteConfigEntry
-from .entity import PurpleAirLiteEntity
+from .coordinator import PurpleAirConfigEntry
+from .entity import PurpleAirEntity
 
 CONCENTRATION_PARTICLES_PER_100_MILLILITERS = f"particles/100{UnitOfVolume.MILLILITERS}"
 
 
 @dataclass(frozen=True, kw_only=True)
-class PurpleAirLiteSensorEntityDescription(SensorEntityDescription):
-    """Define an object to describe PurpleAirLite sensor entities."""
+class PurpleAirSensorEntityDescription(SensorEntityDescription):
+    """Define an object to describe PurpleAir sensor entities."""
 
     value_fn: Callable[[SensorModel], float | str | None]
 
 
 SENSOR_DESCRIPTIONS = [
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="humidity",
         device_class=SensorDeviceClass.HUMIDITY,
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.humidity,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm0.3_count_concentration",
         translation_key="pm0_3_count_concentration",
         entity_registry_enabled_default=False,
@@ -56,7 +56,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm0_3_um_count,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm0.5_count_concentration",
         translation_key="pm0_5_count_concentration",
         entity_registry_enabled_default=False,
@@ -64,7 +64,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm0_5_um_count,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm1.0_count_concentration",
         translation_key="pm1_0_count_concentration",
         entity_registry_enabled_default=False,
@@ -72,14 +72,14 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm1_0_um_count,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm1.0_mass_concentration",
         device_class=SensorDeviceClass.PM1,
         native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm1_0,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm10.0_count_concentration",
         translation_key="pm10_0_count_concentration",
         entity_registry_enabled_default=False,
@@ -87,14 +87,14 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm10_0_um_count,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm10.0_mass_concentration",
         device_class=SensorDeviceClass.PM10,
         native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm10_0,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm2.5_count_concentration",
         translation_key="pm2_5_count_concentration",
         entity_registry_enabled_default=False,
@@ -102,14 +102,14 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm2_5_um_count,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm2.5_mass_concentration",
         device_class=SensorDeviceClass.PM25,
         native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm2_5,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pm5.0_count_concentration",
         translation_key="pm5_0_count_concentration",
         entity_registry_enabled_default=False,
@@ -117,14 +117,14 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pm5_0_um_count,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="pressure",
         device_class=SensorDeviceClass.PRESSURE,
         native_unit_of_measurement=UnitOfPressure.MBAR,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pressure,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="rssi",
         translation_key="rssi",
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
@@ -134,14 +134,14 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.pressure,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="temperature",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.FAHRENHEIT,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda sensor: sensor.temperature,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         key="uptime",
         translation_key="uptime",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -151,7 +151,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.TOTAL_INCREASING,
         value_fn=lambda sensor: sensor.uptime,
     ),
-    PurpleAirLiteSensorEntityDescription(
+    PurpleAirSensorEntityDescription(
         # This sensor is an air quality index for VOCs. More info at https://github.com/home-assistant/core/pull/84896
         key="voc",
         translation_key="voc_aqi",
@@ -164,27 +164,27 @@ SENSOR_DESCRIPTIONS = [
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: PurpleAirLiteConfigEntry,
+    entry: PurpleAirConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    """Set up PurpleAirLite sensors based on a config entry."""
+    """Set up PurpleAir sensors based on a config entry."""
     async_add_entities(
-        PurpleAirLiteSensorEntity(entry, sensor_index, description)
+        PurpleAirSensorEntity(entry, sensor_index, description)
         for sensor_index in entry.options[CONF_SENSOR_INDICES]
         for description in SENSOR_DESCRIPTIONS
     )
 
 
-class PurpleAirLiteSensorEntity(PurpleAirLiteEntity, SensorEntity):
-    """Define a representation of a PurpleAirLite sensor."""
+class PurpleAirSensorEntity(PurpleAirEntity, SensorEntity):
+    """Define a representation of a PurpleAir sensor."""
 
-    entity_description: PurpleAirLiteSensorEntityDescription
+    entity_description: PurpleAirSensorEntityDescription
 
     def __init__(
         self,
-        entry: PurpleAirLiteConfigEntry,
+        entry: PurpleAirConfigEntry,
         sensor_index: int,
-        description: PurpleAirLiteSensorEntityDescription,
+        description: PurpleAirSensorEntityDescription,
     ) -> None:
         """Initialize."""
         super().__init__(entry, sensor_index)

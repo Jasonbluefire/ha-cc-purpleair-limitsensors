@@ -1,4 +1,4 @@
-"""Config flow for PurpleAir integration."""
+"""Config flow for PurpleAirLite integration."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from typing import Any, cast
 
 from aiopurpleair import API
 from aiopurpleair.endpoints.sensors import NearbySensorResult
-from aiopurpleair.errors import InvalidApiKeyError, PurpleAirLiteError
+from aiopurpleair.errors import InvalidApiKeyError, PurpleAirError
 import voluptuous as vol
 
 from homeassistant.config_entries import (
@@ -150,8 +150,8 @@ async def async_validate_api_key(hass: HomeAssistant, api_key: str) -> Validatio
         await api.async_check_api_key()
     except InvalidApiKeyError:
         errors["base"] = "invalid_api_key"
-    except PurpleAirLiteError as err:
-        LOGGER.error("PurpleAirLite error while checking API key: %s", err)
+    except PurpleAirError as err:
+        LOGGER.error("PurpleAir error while checking API key: %s", err)
         errors["base"] = "unknown"
     except Exception as err:  # noqa: BLE001
         LOGGER.exception("Unexpected exception while checking API key: %s", err)
@@ -178,8 +178,8 @@ async def async_validate_coordinates(
         nearby_sensor_results = await api.sensors.async_get_nearby_sensors(
             ["name"], latitude, longitude, distance, limit_results=5
         )
-    except PurpleAirLiteError as err:
-        LOGGER.error("PurpleAirLite error while getting nearby sensors: %s", err)
+    except PurpleAirError as err:
+        LOGGER.error("PurpleAir error while getting nearby sensors: %s", err)
         errors["base"] = "unknown"
     except Exception as err:  # noqa: BLE001
         LOGGER.exception("Unexpected exception while getting nearby sensors: %s", err)
@@ -194,8 +194,8 @@ async def async_validate_coordinates(
     return ValidationResult(data=nearby_sensor_results)
 
 
-class PurpleAirLiteConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for PurpleAirLite."""
+class PurpleAirConfigFlow(ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for PurpleAir."""
 
     VERSION = 1
 
@@ -207,9 +207,9 @@ class PurpleAirLiteConfigFlow(ConfigFlow, domain=DOMAIN):
     @callback
     def async_get_options_flow(
         config_entry: ConfigEntry,
-    ) -> PurpleAirLiteOptionsFlowHandler:
+    ) -> PurpleAirOptionsFlowHandler:
         """Define the config flow to handle options."""
-        return PurpleAirLiteOptionsFlowHandler()
+        return PurpleAirOptionsFlowHandler()
 
     async def async_step_by_coordinates(
         self, user_input: dict[str, Any] | None = None
@@ -312,8 +312,8 @@ class PurpleAirLiteConfigFlow(ConfigFlow, domain=DOMAIN):
         return await self.async_step_by_coordinates()
 
 
-class PurpleAirLiteOptionsFlowHandler(OptionsFlow):
-    """Handle a PurpleAirLite options flow."""
+class PurpleAirOptionsFlowHandler(OptionsFlow):
+    """Handle a PurpleAir options flow."""
 
     def __init__(self) -> None:
         """Initialize."""

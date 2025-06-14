@@ -1,11 +1,11 @@
-"""Define a PurpleAir DataUpdateCoordinator."""
+"""Define a PurpleAirLite DataUpdateCoordinator."""
 
 from __future__ import annotations
 
 from datetime import timedelta
 
 from aiopurpleair import API
-from aiopurpleair.errors import InvalidApiKeyError, PurpleAirLiteError
+from aiopurpleair.errors import InvalidApiKeyError, PurpleAirError
 from aiopurpleair.models.sensors import GetSensorsResponse
 
 from homeassistant.config_entries import ConfigEntry
@@ -26,15 +26,15 @@ SENSOR_FIELDS_TO_RETRIEVE = [
 UPDATE_INTERVAL = timedelta(minutes=2)
 
 
-type PurpleAirLiteConfigEntry = ConfigEntry[PurpleAirLiteDataUpdateCoordinator]
+type PurpleAirConfigEntry = ConfigEntry[PurpleAirDataUpdateCoordinator]
 
 
-class PurpleAirLiteDataUpdateCoordinator(DataUpdateCoordinator[GetSensorsResponse]):
-    """Define a PurpleAirLite-specific coordinator."""
+class PurpleAirDataUpdateCoordinator(DataUpdateCoordinator[GetSensorsResponse]):
+    """Define a PurpleAir-specific coordinator."""
 
-    config_entry: PurpleAirLiteConfigEntry
+    config_entry: PurpleAirConfigEntry
 
-    def __init__(self, hass: HomeAssistant, entry: PurpleAirLiteConfigEntry) -> None:
+    def __init__(self, hass: HomeAssistant, entry: PurpleAirConfigEntry) -> None:
         """Initialize."""
         self._api = API(
             entry.data[CONF_API_KEY],
@@ -58,7 +58,7 @@ class PurpleAirLiteDataUpdateCoordinator(DataUpdateCoordinator[GetSensorsRespons
             )
         except InvalidApiKeyError as err:
             raise ConfigEntryAuthFailed("Invalid API key") from err
-        except PurpleAirLiteError as err:
+        except PurpleAirError as err:
             raise UpdateFailed(f"Error while fetching data: {err}") from err
 
     @callback

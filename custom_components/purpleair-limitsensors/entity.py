@@ -12,17 +12,17 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
-from .coordinator import PurpleAirLiteConfigEntry, PurpleAirLiteDataUpdateCoordinator
+from .coordinator import PurpleAirConfigEntry, PurpleAirDataUpdateCoordinator
 
 
-class PurpleAirLiteEntity(CoordinatorEntity[PurpleAirLiteDataUpdateCoordinator]):
+class PurpleAirEntity(CoordinatorEntity[PurpleAirDataUpdateCoordinator]):
     """Define a base PurpleAir entity."""
 
     _attr_has_entity_name = True
 
     def __init__(
         self,
-        entry: PurpleAirLiteConfigEntry,
+        entry: PurpleAirConfigEntry,
         sensor_index: int,
     ) -> None:
         """Initialize."""

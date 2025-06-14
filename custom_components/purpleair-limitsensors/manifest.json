@@ -1,6 +1,6 @@
 {
-  "domain": "purpleair-lite",
-  "name": "PurpleAir-lite",
+  "domain": "purpleair_lite",
+  "name": "PurpleAir_lite",
   "codeowners": ["@bachya"],
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/purpleair",

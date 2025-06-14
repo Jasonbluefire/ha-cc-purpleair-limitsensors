@@ -1,6 +1,22 @@
 # PurpleAir Lite Home Assistant Integration
 
-A custom copy of the homeassistent purpleair integration that limits the number of sensors queried
+A custom copy of the homeassistent purpleair integration that limits the number of sensors queried.
+
+##Why?
+
+PurpleAir charges for their API, the current integration in homeassistent core does not query PurpleAir efficiently.
+[HACore issue 146600](https://github.com/home-assistant/core/issues/146600)
+
+
+## Warning - In progress
+
+This is not ready for prime time yet, but it works for my specific use case.
+Drops number of PurpleAir API points used per call from 41 to 11:
+Only pulls data for Temp, Humidity, and VOCs
+
+If I get time, I will make it configurable, save and lookup which HA sensors are disabled any query only for the ones that are enabled.
+Right now to change which sensors are updated you would need to fork this repo and edit the list in coordinator.py
+(2025-06-14)
 
 
 ## Installation with HACS
@@ -20,6 +36,4 @@ Setting up a custom repository is done by:
 7. Select PurpleAir Lite from the list and press the download button. 
 8. Further configuration is done within the Integrations configuration in Home Assistant. You may need to restart home assistant and clear your browser cache before it appears, try ctrl+shift+r if you don't see it in the configuration list.
 
-
-## Configuration
 

@@ -2,7 +2,7 @@
 
 A custom copy of the homeassistent purpleair integration that limits the number of sensors queried.
 
-##Why?
+## Why?
 
 PurpleAir charges for their API, the current integration in homeassistent core does not query PurpleAir efficiently.
 [HACore issue 146600](https://github.com/home-assistant/core/issues/146600)

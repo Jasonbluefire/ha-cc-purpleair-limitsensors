@@ -17,9 +17,52 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 
 from .const import CONF_SENSOR_INDICES, LOGGER
 
+#ToDo: Config integration to change list dynamicly bases on enables HA sensors
 SENSOR_FIELDS_TO_RETRIEVE = [
     "humidity",
     "temperature",
+    "voc",
+    "name", #Needed for setup
+]
+
+# This is not used yet, 
+# ToDo: seperate out the initial config data fetch from the ongoing data refresh fetchs
+SENSOR_FIELDS_FOR_INITIAL_SETUP = [
+    "firmware_version",
+    "hardware",
+    "latitude",
+    "location_type",
+    "longitude",
+    "model",
+    "name",
+    "uptime",
+]
+
+# This is not used and is here for reference, 
+# These are all the PurpleAir Sensor Feilds that this integration is configured to handle
+FULL_LIST_OF_SENSOR_FIELDS_CONFIGURED = [
+    "0.3_um_count",
+    "0.5_um_count",
+    "1.0_um_count",
+    "10.0_um_count",
+    "2.5_um_count",
+    "5.0_um_count",
+    "altitude",
+    "firmware_version",
+    "hardware",
+    "humidity",
+    "latitude",
+    "location_type",
+    "longitude",
+    "model",
+    "name",
+    "pm1.0",
+    "pm10.0",
+    "pm2.5",
+    "pressure",
+    "rssi",
+    "temperature",
+    "uptime",
     "voc",
 ]
 

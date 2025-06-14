@@ -11,10 +11,9 @@ PurpleAir charges for their API, the current integration in homeassistant core d
 > ## Work In progress
 > 
 > This is not ready for prime time yet, but it works for my specific use case.
-> Drops number of PurpleAir API points used per call from 41 to 11:
-> Only pulls data for Temp, Humidity, and VOCs
+> Only pulling data for Temp, Humidity, and VOCs; Drops the number of PurpleAir API points used per call from 41 to 11.
 > 
-> I am planning to continue working on this and make it configurable, save and lookup which HA sensors are disabled any query only for the ones that are enabled.
+> I plan to continue working on this and make it configurable, save and lookup which HA sensors are disabled and query only for the ones that are enabled.
 > Right now to change which sensors are updated you would need to fork this repo and edit the list in coordinator.py
 > (2025-06-14)
 > 
